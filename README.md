@@ -10,6 +10,12 @@ cd localhttps
 pip install .
 ```
 
+### From PyPI
+
+```
+pip install localhttps
+```
+
 
 ## Usage
 

@@ -26,5 +26,5 @@ async def unsecure(ctx: Context, domain: str, nginx: bool):
     await cert.delete()
 
     if nginx:
-        out_path = await (ctx.data_path/'Nginx'/'ssl'/f'{domain}.conf').absolute()
+        out_path = await (ctx.data_path/'Nginx'/'ssl'/f'{domain}.conf').resolve()
         await out_path.unlink(missing_ok=True)

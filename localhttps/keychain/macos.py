@@ -15,6 +15,6 @@ class MacOSKeychain(AbstractKeychain):
         console.print('')
         console.print('Execute the following command in terminal and press enter:')
         console.print('')
-        console.print(f'    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain "{await ca.pem_path.absolute()}"')
+        console.print(f'    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain "{await ca.pem_path.resolve()}"')
         console.print('')
         console.input('[Press enter]')

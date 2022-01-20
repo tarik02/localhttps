@@ -1,0 +1,11 @@
+aiofile==3.7.4
+aiopath==0.6.10
+anyio==3.5.0
+asyncclick==8.0.3.2
+caio==0.9.3
+colorama==0.4.4
+commonmark==0.9.1
+idna==3.3
+Pygments==2.11.2
+rich==11.0.0
+sniffio==1.2.0

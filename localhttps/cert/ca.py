@@ -89,6 +89,7 @@ class CertificationAuthority:
             self.key_path.unlink(missing_ok=True),
             self.pem_path.unlink(missing_ok=True),
         )
-        async for _ in self._root_path.glob('*'):
-            return
-        self._root_path.rmdir()
+        if await self._root_path.exists():
+            async for _ in self._root_path.glob('*'):
+                return
+            self._root_path.rmdir()

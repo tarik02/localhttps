@@ -157,6 +157,7 @@ DNS.2 = *.{self._domain}
             self.crt_path.unlink(missing_ok=True),
             self.conf_path.unlink(missing_ok=True),
         )
-        async for _ in self._root_path.glob('*'):
-            return
-        await self._root_path.rmdir()
+        if await self._root_path.exists():
+            async for _ in self._root_path.glob('*'):
+                return
+            await self._root_path.rmdir()

@@ -2,13 +2,13 @@
 
 ## Installation
 
-### From Source
-
-### From PyPI
+### From PyPI (recommended)
 
 ```
 pip install localhttps
 ```
+
+### From Source
 
 ```
 git clone https://github.com/Tarik02/localhttps

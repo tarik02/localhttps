@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "localhttps"
+version = "0.1.4"
+description = "HTTPS manager for local sites"
+authors = ["Tarik02 <Taras.Fomin@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiopath = "^0.6.10"
+asyncclick = "^8.0.3"
+rich = "^11.2.0"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+localhttps = 'localhttps:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

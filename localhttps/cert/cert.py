@@ -101,7 +101,7 @@ DNS.2 = *.{self._domain}
         await cmd.run(
             'openssl',
             'genrsa',
-            '-out', str(await self.key_path.resolve()),
+            '-out', str(await self.key_path.absolute()),
             '2048',
         )
 
@@ -110,10 +110,10 @@ DNS.2 = *.{self._domain}
             'openssl',
             'req',
             '-new',
-            '-key', str(await self.key_path.resolve()),
-            '-out', str(await self.csr_path.resolve()),
+            '-key', str(await self.key_path.absolute()),
+            '-out', str(await self.csr_path.absolute()),
             '-subj', self.subject,
-            '-config', str(await self.conf_path.resolve()),
+            '-config', str(await self.conf_path.absolute()),
         )
 
     async def create(self, cmd: Cmd) -> None:
@@ -130,9 +130,9 @@ DNS.2 = *.{self._domain}
             '-req',
             '-sha256',
             '-days', '730',
-            '-CA', str(await self._authority.pem_path.resolve()),
-            '-CAkey', str(await self._authority.key_path.resolve()),
-            '-CAserial', str(await self._authority.srl_path.resolve()),
+            '-CA', str(await self._authority.pem_path.absolute()),
+            '-CAkey', str(await self._authority.key_path.absolute()),
+            '-CAserial', str(await self._authority.srl_path.absolute()),
         ]
 
         if not await self._authority.srl_path.exists():
@@ -140,10 +140,10 @@ DNS.2 = *.{self._domain}
 
         params = [
             *params,
-            '-in', str(await self.csr_path.resolve()),
-            '-out', str(await self.crt_path.resolve()),
+            '-in', str(await self.csr_path.absolute()),
+            '-out', str(await self.crt_path.absolute()),
             '-extensions', 'v3_req',
-            '-extfile', str(await self.conf_path.resolve()),
+            '-extfile', str(await self.conf_path.absolute()),
         ]
 
         await cmd.run('openssl', 'x509', *params)

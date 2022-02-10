@@ -10,10 +10,10 @@ class LinuxKeychain(AbstractKeychain):
     async def databases(self) -> AsyncIterable[str]:
         p = (await AsyncPath.home())/'.pki'/'nssdb'
         if await p.exists():
-            yield f'sql:{await p.resolve()}'
+            yield f'sql:{await p.absolute()}'
 
         async for p in ((await AsyncPath.home())/'.mozilla'/'firefox').glob('*.default'):
-            yield str(await p.resolve())
+            yield str(await p.absolute())
 
     async def trust_ca(self, cmd: Cmd, ca: CertificationAuthority, database: str):
         await cmd.run(
@@ -22,5 +22,5 @@ class LinuxKeychain(AbstractKeychain):
             '-A',
             '-t', 'TC',
             '-n', 'localhttps',
-            '-i', str(await ca.pem_path.resolve()),
+            '-i', str(await ca.pem_path.absolute()),
         )

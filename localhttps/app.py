@@ -26,12 +26,12 @@ class App:
 
     async def generate_nginx_config(self, cert: Certificate, out_path: AsyncPath):
         await out_path.write_text(f'''
-ssl_certificate {await cert.crt_path.resolve()};
-ssl_certificate_key {await cert.key_path.resolve()};
+ssl_certificate {await cert.crt_path.absolute()};
+ssl_certificate_key {await cert.key_path.absolute()};
 '''.strip())
 
     async def generate_universal_nginx_config(self, ca: CertificationAuthority, out_path: AsyncPath):
-        key_path_prefix = await (self._data_path/'Certificates'/ca.name).resolve()
+        key_path_prefix = await (self._data_path/'Certificates'/ca.name).absolute()
         await out_path.write_text(f'''
 ssl_certificate {key_path_prefix}/$ssl_server_name.crt;
 ssl_certificate_key {key_path_prefix}/$ssl_server_name.key;

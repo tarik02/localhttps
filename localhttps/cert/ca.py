@@ -80,8 +80,8 @@ class CertificationAuthority:
             '-x509',
             '-subj',
             self.subject,
-            '-keyout', str(await self.key_path.resolve()),
-            '-out', str(await self.pem_path.resolve()),
+            '-keyout', str(await self.key_path.absolute()),
+            '-out', str(await self.pem_path.absolute()),
         )
 
     async def delete(self) -> None:

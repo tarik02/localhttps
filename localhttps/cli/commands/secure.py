@@ -28,7 +28,7 @@ async def secure(ctx: Context, domain: str, force: bool, nginx: bool):
         ctx.console.print('certificate already exists, use [blue]--force[/blue] to recreate')
 
     if nginx:
-        out_path = await (ctx.data_path/'Nginx'/'ssl'/f'{domain}.conf').resolve()
+        out_path = await (ctx.data_path/'Nginx'/'ssl'/f'{domain}.conf').absolute()
         await out_path.parent.mkdir(parents=True, exist_ok=True)
         await ctx.app.generate_nginx_config(cert, out_path)
         ctx.console.print(f'nginx config generated to {out_path}')

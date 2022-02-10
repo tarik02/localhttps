@@ -10,6 +10,7 @@ python = "^3.10"
 aiopath = "^0.6.10"
 asyncclick = "^8.0.3"
 rich = "^11.2.0"
+anyio = "^3.5.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "localhttps"
-version = "0.1.4"
+version = "0.1.5"
 description = "HTTPS manager for local sites"
 authors = ["Tarik02 <Taras.Fomin@gmail.com>"]
 license = "MIT"

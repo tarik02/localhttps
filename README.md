@@ -2,13 +2,13 @@
 
 ## Installation
 
-### From PyPI (recommended)
+### Option 1. From PyPI (recommended)
 
 ```
 pip install localhttps
 ```
 
-### From Source
+### Option 2. From Source
 
 ```
 git clone https://github.com/Tarik02/localhttps
@@ -16,6 +16,9 @@ cd localhttps
 pip install .
 ```
 
+### Recommended dependencies
+
+It's recommended to install `p11-kit` package where it's available (on Linux systems). It is used to install certification authority to system keychain.
 
 ## Usage
 

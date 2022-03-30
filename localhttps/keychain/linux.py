@@ -2,6 +2,7 @@ from typing import AsyncIterable
 from aiopath import AsyncPath
 from aiofiles.os import wrap
 import shutil
+import rich
 
 from localhttps.cert.ca import CertificationAuthority
 from localhttps.keychain.abc import AbstractKeychain
@@ -20,12 +21,17 @@ class LinuxKeychain(AbstractKeychain):
         async for p in ((await AsyncPath.home())/'.mozilla'/'firefox').glob('*.default'):
             yield str(await p.absolute())
 
-        trust_path = await which('trust')
-        if trust_path is not None:
-            yield f'p11-kit:{trust_path}'
+        yield f'p11-kit'
 
     async def trust_ca(self, cmd: Cmd, ca: CertificationAuthority, database: str):
-        if database.startswith('p11-kit:'):
+        console = rich.get_console()
+
+        if database == 'p11-kit':
+            trust_path = await which('trust')
+            if trust_path is None:
+                console.print()
+                console.print('Install p11-kit and then:')
+
             await ask_to_run_command(f'sudo trust anchor --store {await ca.pem_path.absolute()}')
             return
 

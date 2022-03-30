@@ -7,15 +7,17 @@ from localhttps.utils.domain import normalize_domain
 
 
 @cli.command(help='Create certificate for domain')
-@click.argument('domain', nargs=-1)
+@click.option('--ca', default='default', help='Certification authority name')
 @click.option('--force/--no-force', default=False, help='Force recreate')
 @click.option('--nginx/--no-nginx', default=False, help='Generate config for nginx')
+@click.argument('domain', nargs=-1)
 @with_context
-async def secure(ctx: Context, domain: List[str], force: bool, nginx: bool):
+async def secure(ctx: Context, ca: str, force: bool, nginx: bool, domain: List[str]):
+    ca = ctx.app.ca(ca)
     domains = domain
 
-    if not await ctx.ca.exists():
-        ctx.console.print(f'[red]certification authority [blue]{ctx.ca.name}[/blue] is not created, use init command to create first[/red]')
+    if not await ca.exists():
+        ctx.console.print(f'[red]certification authority [blue]{ca.name}[/blue] is not created, use init command to create first[/red]')
         ctx.exit(1)
 
     for domain in domains:
@@ -24,7 +26,7 @@ async def secure(ctx: Context, domain: List[str], force: bool, nginx: bool):
         cert = ctx.app.cert(
             domain=domain,
             name=domain,
-            ca=ctx.ca,
+            ca=ca,
         )
 
         if force or not await cert.exists():

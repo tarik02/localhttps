@@ -7,13 +7,15 @@ from localhttps.utils.domain import normalize_domain
 
 
 @cli.command(help='Delete certificate for domain')
+@click.option('--ca', default='default', help='Certification authority name')
 @click.argument('domain', nargs=-1)
 @with_context
-async def unsecure(ctx: Context, domain: List[str]):
+async def unsecure(ctx: Context, ca: str, domain: List[str]):
+    ca = ctx.app.ca(ca)
     domains = domain
 
-    if not await ctx.ca.exists():
-        ctx.console.print(f'[red]certification authority [blue]{ctx.ca.name}[/blue] is not created[/red]')
+    if not await ca.exists():
+        ctx.console.print(f'[red]certification authority [blue]{ca.name}[/blue] is not created[/red]')
         ctx.exit(1)
 
     for domain in domains:
@@ -22,7 +24,7 @@ async def unsecure(ctx: Context, domain: List[str]):
         cert = ctx.app.cert(
             domain=domain,
             name=domain,
-            ca=ctx.ca,
+            ca=ca,
         )
 
         if not await cert.exists():

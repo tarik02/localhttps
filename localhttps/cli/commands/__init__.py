@@ -26,10 +26,9 @@ async def resolve_default_data_path() -> AsyncPath:
 
 @click.group()
 @click.option('--data-path', default=None, help='Base data path (defaults to $LOCALHTTPS_DATA or $XDG_CONFIG_HOME/localhttps (~/.config/localhttps))')
-@click.option('--ca', default='default', help='Certification authority name')
 @click.option('--verbose/-V', default=False, help='Verbose output')
 @with_context
-async def cli(ctx: Context, data_path: Optional[str], ca: str, verbose: bool):
+async def cli(ctx: Context, data_path: Optional[str], verbose: bool):
     if data_path is not None:
         ctx.data_path = await AsyncPath(data_path).absolute()
     else:
@@ -37,10 +36,10 @@ async def cli(ctx: Context, data_path: Optional[str], ca: str, verbose: bool):
 
     ctx.app = App(ctx.data_path)
 
-    ctx.ca = ctx.app.ca(ca)
     if verbose and isinstance(ctx.cmd, DefaultConsoleCmd):
         ctx.cmd.verbose = True
 
 import localhttps.cli.commands.init
 import localhttps.cli.commands.secure
+import localhttps.cli.commands.status
 import localhttps.cli.commands.unsecure

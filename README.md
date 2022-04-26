@@ -2,13 +2,25 @@
 
 ## Installation
 
-### Option 1. From PyPI (recommended)
+### Option 1. Docker Image (recommended)
+
+Add this to your aliases:
+```
+alias localhttps="docker run \
+  -u "$(id -u "${USER}"):$(id -g "${USER}")" \
+  -e "USER=${USER}" \
+  -e "HOME=${HOME}" \
+  -v "$HOME/.config/localhttps:$HOME/.config/localhttps" \
+  -t tarik02/localhttps"
+```
+
+### Option 2. From PyPI
 
 ```
 pip install localhttps
 ```
 
-### Option 2. From Source
+### Option 3. From Source
 
 ```
 git clone https://github.com/Tarik02/localhttps
@@ -30,6 +42,15 @@ $ localhttps init --trust --nginx
 ```
 
 This command will generate certification authority for certificates, add it to system or browser keychain (`--trust`) and will generate universal nginx config for it (`--nginx`).
+
+
+### Status
+
+```
+$ localhttps status
+```
+
+Will show you list of generated certificates and domains.
 
 
 ### Generate certificate
@@ -65,5 +86,5 @@ If you are using nginx inside docker, just map local paths to container like thi
 services:
   nginx:
     volumes:
-    - /home/<username>/.config/localhttps:/home/<username>/.config/localhttps
+    - ${HOME}/.config/localhttps:${HOME}/.config/localhttps
 ```

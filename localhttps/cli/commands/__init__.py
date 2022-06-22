@@ -43,3 +43,4 @@ import localhttps.cli.commands.init
 import localhttps.cli.commands.secure
 import localhttps.cli.commands.status
 import localhttps.cli.commands.unsecure
+import localhttps.cli.commands.use

@@ -9,7 +9,7 @@ from localhttps.keychain import get_current_keychain
 
 async def create_context():
     ctx = Context()
-    ctx.console = Console(soft_wrap=True)
+    ctx.console = Console(soft_wrap=True, stderr=True)
     ctx.cmd = DefaultConsoleCmd(ctx.console)
     ctx.keychain = get_current_keychain()
     return ctx

@@ -53,6 +53,27 @@ $ localhttps status
 Will show you list of generated certificates and domains.
 
 
+### Create and use certificate for specific task
+
+```
+$ localhttps use json localhost
+# {"domain":"localhost","cert":{"key":"/path/to/config/Certificates/default/localhost.key","crt":"/path/to/config/Certificates/default/localhost.crt"},"ca":{"key":"/path/to/config/CertificationAuthorities/default.key","pem":"/path/to/config/CertificationAuthorities/default.pem"}}
+
+$ localhttps use webpack localhost
+# --client-web-socket-url-hostname='localhost' --server-type https --server-options-key='/path/to/config/Certificates/default/localhost.key' --server-options-cert='/path/to/config/Certificates/default/localhost.crt' --server-options-ca='/path/to/config/CertificationAuthorities/default.pem'
+
+$ localhttps use -- '--key {cert[key]} --crt {cert[crt]}' localhost
+# --key /home/tarik02/.config/localhttps/Certificates/default/localhost.key --crt /home/tarik02/.config/localhttps/Certificates/default/localhost.crt
+
+# Available variable placeholders:
+# {domain}
+# {cert[key]}
+# {cert[crt]}
+# {ca[key]}
+# {ca[pem]}
+```
+
+
 ### Generate certificate
 
 Then for every domain you use:

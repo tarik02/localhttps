@@ -7,7 +7,7 @@ from localhttps.cli.context import Context
 from localhttps.utils.domain import normalize_domain
 
 DEFAULT_FORMATS = {
-    'webpack': "--client-web-socket-url-hostname='{domain}' --server-type https --server-options-key='{cert[key]}' --server-options-cert='{cert[crt]}' --server-options-ca='{ca[pem]}'",
+    'webpack': "'--client-web-socket-url-hostname={domain}' --server-type https '--server-options-key={cert[key]}' '--server-options-cert={cert[crt]}' '--server-options-ca={ca[pem]}'",
 }
 
 @cli.command(help='Create certificate and print it with given format')
